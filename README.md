@@ -2,8 +2,8 @@
 
 ## Introduction
 
-> In this presentation, i will be demonstrating a Computer Vision demo using YOLOv5 on the Microsoft COCO Dataset including close to 90 detectable objects.
-The user can choose between detection on an image or via the webcam.
+> In this presentation, i will be demonstrating a Computer Vision demo using YOLOv5 on the Microsoft COCO Dataset including close to 90 detectable objects.\
+> The user can choose between detection on an image or via the webcam in real-time.
 
 ## Installation
 
