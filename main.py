@@ -12,8 +12,15 @@ import argparse
 from PIL import Image  
 import PIL
 
+st.set_page_config(
+    page_title="Hassan Baydoun - Final Project Python",
+)
+
 @contextmanager
 def st_redirect(src, dst):
+    '''
+        Redirects the print of a function to the streamlit UI.
+    '''
     placeholder = st.empty()
     output_func = getattr(placeholder, dst)
 
@@ -36,24 +43,36 @@ def st_redirect(src, dst):
 
 @contextmanager
 def st_stdout(dst):
+    '''
+        Sub-implementation to redirect for code redability.
+    '''
     with st_redirect(sys.stdout, dst):
         yield
 
 
 @contextmanager
 def st_stderr(dst):
+    '''
+        Sub-implementation to redirect for code redability in case of errors.
+    '''
     with st_redirect(sys.stderr, dst):
         yield
 
-def all_subdirs_of(b='.'):
+def _all_subdirs_of(b='.'):
+    '''
+        Returns all sub-directories in a specific Path
+    '''
     result = []
     for d in os.listdir(b):
         bd = os.path.join(b, d)
         if os.path.isdir(bd): result.append(bd)
     return result
 
-def get_latest_folder():
-    return max(all_subdirs_of('runs\detect'), key=os.path.getmtime)
+def _get_latest_folder():
+    '''
+        Returns the latest folder in a runs\detect
+    '''
+    return max(_all_subdirs_of('runs\\detect'), key=os.path.getmtime)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--weights', nargs='+', type=str, default='weights\yolov5m.pt', help='model.pt path(s)')
@@ -79,13 +98,23 @@ parser.add_argument('--hide-labels', default=False, action='store_true', help='h
 parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
 opt = parser.parse_args()
 
-CHOICES = {0: "Image Upload", 1: "Webcam"}
+CHOICES = {0: "Image Upload", 1: "Upload Video"}
+
+def _save_uploadedfile(uploadedfile):
+    '''
+        Saves uploaded videos to disk.
+    '''
+    with open(os.path.join("data\\videos",uploadedfile.name),"wb") as f:
+        f.write(uploadedfile.getbuffer())
 
 
-def format_func(option):
+def _format_func(option):
+    '''
+        Format function for select Key/Value implementation.
+    '''
     return CHOICES[option]
 
-inferenceSource = str(st.sidebar.selectbox('Select Source to detect:', options=list(CHOICES.keys()), format_func=format_func))
+inferenceSource = str(st.sidebar.selectbox('Select Source to detect:', options=list(CHOICES.keys()), format_func=_format_func))
 
 if inferenceSource == '0':
     uploaded_file = st.sidebar.file_uploader("Upload Image", type=['png','jpeg', 'jpg'])
@@ -96,11 +125,18 @@ if inferenceSource == '0':
             picture = Image.open(uploaded_file)  
             picture = picture.save(f'data\images\{uploaded_file.name}') 
             opt.source = f'data\images\{uploaded_file.name}'
-        
     else:
         is_valid = False
 else:
-    is_valid = True
+    uploaded_file = st.sidebar.file_uploader("Upload Video", type=['mp4'])
+    if uploaded_file is not None:
+        is_valid = True
+        with st.spinner(text='In progress'):
+            st.sidebar.video(uploaded_file)
+            _save_uploadedfile(uploaded_file) 
+            opt.source = f'data\\videos\\{uploaded_file.name}'
+    else:
+        is_valid = False
 
 st.title('Welcome to my Final Python Project!')
 st.subheader('Presented to: Prof. Georges Salloum by Hassan BAYDOUN (192604)')
@@ -109,16 +145,17 @@ inferenceButton = st.empty()
 
 if is_valid:
     if inferenceButton.button('Launch the Detection!'):
-        if inferenceSource != '0':
-            opt.source = '0'
-            for vid in os.listdir(get_latest_folder()):
-                st.video(f'{get_latest_folder()}\{vid}')
-            if st.button('Stop!'):
-                st.stop()
         with st_stdout("info"):
             detect(opt)
-        for img in os.listdir(get_latest_folder()):
-            st.image(f'{get_latest_folder()}\{img}')
-            st.balloons()
+        if inferenceSource != '0':
+            with st.spinner(text='Preparing Video'):
+                for vid in os.listdir(_get_latest_folder()):
+                    st.video(f'{_get_latest_folder()}\\{vid}')
+                st.balloons()
+        else:
+            with st.spinner(text='Preparing Images'):
+                for img in os.listdir(_get_latest_folder()):
+                    st.image(f'{_get_latest_folder()}\\{img}')
+                st.balloons()
 
 
