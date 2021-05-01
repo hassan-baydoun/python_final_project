@@ -20,7 +20,13 @@
 - `mv ./* ..`
 - `rm -rfv yolov5`
 
+or
 
+- `git clone https://github.com/hassan-baydoun/python_final_project.git`
+
+## Run
+
+> Run with command `streamlit run main.py`
 ## Code Samples
 
 > Paceholder till code is written
