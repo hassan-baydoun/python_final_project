@@ -11,8 +11,7 @@ The user can choose between detection on an image or via the webcam.
 - [Python >= 3.8](https://www.python.org/downloads/)
 - [GitCLI](https://cli.github.com/ "`GitCLI`")
 - [Anaconda](https://www.anaconda.com/) (optional)
-- 
-> ```shell
+- ```shell
 git clone https://github.com/ultralytics/yolov5
 cd yolov5
 pip install -r requirements.txt
