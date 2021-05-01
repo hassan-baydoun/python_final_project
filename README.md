@@ -11,13 +11,15 @@
 - [Python >= 3.8](https://www.python.org/downloads/)
 - [GitCLI](https://cli.github.com/ "`GitCLI`")
 - [Anaconda](https://www.anaconda.com/) (optional)
+- streamlit -> `pip3 install streamlit`
 - `git clone https://github.com/ultralytics/yolov5`
 - `cd yolov5`
 - `pip install -r requirements.txt`
 - `rm README.md`
 - `rm .gitattributes`
 - `mv ./* ..`
-- streamlit -> `pip3 install streamlit`
+- `rm -rfv yolov5`
+
 
 ## Code Samples
 
