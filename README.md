@@ -14,6 +14,9 @@
 - `git clone https://github.com/ultralytics/yolov5`
 - `cd yolov5`
 - `pip install -r requirements.txt`
+- `rm README.md`
+- `rm .gitattributes`
+- `mv ./* ..`
 - streamlit -> `pip3 install streamlit`
 
 ## Code Samples
