@@ -9,6 +9,8 @@ from detect import detect
 import os
 import sys
 import argparse
+from PIL import Image  
+import PIL
 
 @contextmanager
 def st_redirect(src, dst):
@@ -55,7 +57,7 @@ def get_latest_folder():
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--weights', nargs='+', type=str, default='weights\yolov5m.pt', help='model.pt path(s)')
-parser.add_argument('--source', type=str, default='data/images', help='source')  # file/folder, 0 for webcam
+parser.add_argument('--source', type=str, default='data\images', help='source')  # file/folder, 0 for webcam
 parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
 parser.add_argument('--conf-thres', type=float, default=0.25, help='object confidence threshold')
 parser.add_argument('--iou-thres', type=float, default=0.45, help='IOU threshold for NMS')
@@ -77,16 +79,46 @@ parser.add_argument('--hide-labels', default=False, action='store_true', help='h
 parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
 opt = parser.parse_args()
 
-a = st.sidebar.text('Welcome!')
+CHOICES = {0: "Image Upload", 1: "Webcam"}
+
+
+def format_func(option):
+    return CHOICES[option]
+
+inferenceSource = str(st.sidebar.selectbox('Select Source to detect:', options=list(CHOICES.keys()), format_func=format_func))
+
+if inferenceSource == '0':
+    uploaded_file = st.sidebar.file_uploader("Upload Image", type=['png','jpeg', 'jpg'])
+    if uploaded_file is not None:
+        is_valid = True
+        with st.spinner(text='In progress'):
+            st.sidebar.image(uploaded_file)
+            picture = Image.open(uploaded_file)  
+            picture = picture.save(f'data\images\{uploaded_file.name}') 
+            opt.source = f'data\images\{uploaded_file.name}'
+        
+    else:
+        is_valid = False
+else:
+    is_valid = True
 
 st.title('Welcome to my Final Python Project!')
 st.subheader('Presented to: Prof. Georges Salloum by Hassan BAYDOUN (192604)')
 
-if st.button('Hit me'):
-    with st_stdout("info"):
-        detect(opt)
-    for img in os.listdir(get_latest_folder()):
-            if img.endswith(".jpg" or ".png"):
-                st.image(f'{get_latest_folder()}\{img}')
+inferenceButton = st.empty()
+
+if is_valid:
+    if inferenceButton.button('Launch the Detection!'):
+        if inferenceSource != '0':
+            opt.source = '0'
+            for vid in os.listdir(get_latest_folder()):
+                st.video(f'{get_latest_folder()}\{vid}')
+            if st.button('Stop!'):
+                st.stop()
+        with st_stdout("info"):
+            detect(opt)
+        for img in os.listdir(get_latest_folder()):
+            st.image(f'{get_latest_folder()}\{img}')
+            st.balloons()
 
 
