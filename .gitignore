@@ -1,19 +1,12 @@
 # Repo-specific GitIgnore ----------------------------------------------------------------------------------------------
-*.jpg
-*.jpeg
-*.png
 *.bmp
 *.tif
 *.tiff
 *.heic
-*.JPG
-*.JPEG
-*.PNG
 *.BMP
 *.TIF
 *.TIFF
 *.HEIC
-*.mp4
 *.mov
 *.MOV
 *.avi
@@ -25,7 +18,6 @@
 
 storage.googleapis.com
 runs/*
-data/*
 !data/images/zidane.jpg
 !data/images/bus.jpg
 !data/coco.names
@@ -51,8 +43,6 @@ VOC/
 !targets*.mat
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
-*.weights
-*.pt
 *.onnx
 *.mlmodel
 *.torchscript

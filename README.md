@@ -28,6 +28,7 @@ or
 ## Run
 
 > Run with command `streamlit run main.py`
+> Image and video examples can be found in `data/images` and `data/videos`
 
 ## Code Samples
 Private fucntions:
