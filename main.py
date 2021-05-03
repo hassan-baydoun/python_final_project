@@ -152,7 +152,7 @@ if is_valid:
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
                     st.video(f'{_get_latest_folder()}/{vid}')
-                    href = f'<a href="{_get_latest_folder()}/{vid}" title="tipard movie">film name</a>'
+                    href = f'<embed src="{_get_latest_folder()}/{vid}" autostart="false" /></embed>'
                     st.markdown(href, unsafe_allow_html=True)
                 st.balloons()
         else:
