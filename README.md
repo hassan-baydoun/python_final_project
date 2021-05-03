@@ -48,13 +48,13 @@ def _get_latest_folder():
     '''
         Returns the latest folder in a runs\detect
     '''
-    return max(all_subdirs_of('runs\\detect'), key=os.path.getmtime)
+    return max(all_subdirs_of('runs/detect'), key=os.path.getmtime)
 
 def _save_uploadedfile(uploadedfile):
     '''
         Saves uploaded videos to disk.
     '''
-    with open(os.path.join("data\\videos",uploadedfile.name),"wb") as f:
+    with open(os.path.join("data/videos",uploadedfile.name),"wb") as f:
         f.write(uploadedfile.getbuffer())
 
 
