@@ -123,8 +123,8 @@ if inferenceSource == '0':
         with st.spinner(text='In progress'):
             st.sidebar.image(uploaded_file)
             picture = Image.open(uploaded_file)  
-            picture = picture.save(f'data\images\{uploaded_file.name}') 
-            opt.source = f'data\images\{uploaded_file.name}'
+            picture = picture.save(f'data/images/{uploaded_file.name}') 
+            opt.source = f'data/images/{uploaded_file.name}'
     else:
         is_valid = False
 else:
@@ -134,7 +134,7 @@ else:
         with st.spinner(text='In progress'):
             st.sidebar.video(uploaded_file)
             _save_uploadedfile(uploaded_file) 
-            opt.source = f'data\videos\{uploaded_file.name}'
+            opt.source = f'data/videos/{uploaded_file.name}'
     else:
         is_valid = False
 
@@ -150,12 +150,12 @@ if is_valid:
         if inferenceSource != '0':
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
-                    st.video(f'{_get_latest_folder()}\{vid}')
+                    st.video(f'{_get_latest_folder()}/{vid}')
                 st.balloons()
         else:
             with st.spinner(text='Preparing Images'):
                 for img in os.listdir(_get_latest_folder()):
-                    st.image(f'{_get_latest_folder()}\{img}')
+                    st.image(f'{_get_latest_folder()}/{img}')
                 st.balloons()
 
 
