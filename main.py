@@ -72,7 +72,7 @@ def _get_latest_folder():
     '''
         Returns the latest folder in a runs\detect
     '''
-    return max(_all_subdirs_of('runs\detect'), key=os.path.getmtime)
+    return max(_all_subdirs_of(os.path.join('runs', 'detect'), key=os.path.getmtime)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--weights', nargs='+', type=str, default='yolov5m.pt', help='model.pt path(s)')
@@ -104,7 +104,7 @@ def _save_uploadedfile(uploadedfile):
     '''
         Saves uploaded videos to disk.
     '''
-    with open(os.path.join("data\videos",uploadedfile.name),"wb") as f:
+    with open(os.path.join("data", "videos",uploadedfile.name),"wb") as f:
         f.write(uploadedfile.getbuffer())
 
 
