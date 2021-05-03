@@ -152,10 +152,8 @@ if is_valid:
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
                     st.video(f'{_get_latest_folder()}/{vid}')
-                    with open(f'{_get_latest_folder()}/{vid}', "rb") as videoFile:
-                        b64 = base64.b64encode(videoFile.read()).decode()  # some strings <-> bytes conversions necessary here
-                        href = f'<a href="data:file/mp4;base64,{b64}">(If codec not supported press here to download)</a> (right-click and save as &lt;some_name&gt;.mp4)'
-                        st.markdown(href, unsafe_allow_html=True)
+                    href = f'<a href="{_get_latest_folder()}/{vid}" title="tipard movie">film name</a>'
+                    st.markdown(href, unsafe_allow_html=True)
                 st.balloons()
         else:
             with st.spinner(text='Preparing Images'):
