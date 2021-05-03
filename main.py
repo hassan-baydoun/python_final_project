@@ -104,7 +104,7 @@ def _save_uploadedfile(uploadedfile):
     '''
         Saves uploaded videos to disk.
     '''
-    with open(os.path.join("data\\videos",uploadedfile.name),"wb") as f:
+    with open(os.path.join("data\videos",uploadedfile.name),"wb") as f:
         f.write(uploadedfile.getbuffer())
 
 
@@ -134,7 +134,7 @@ else:
         with st.spinner(text='In progress'):
             st.sidebar.video(uploaded_file)
             _save_uploadedfile(uploaded_file) 
-            opt.source = f'data\\videos\\{uploaded_file.name}'
+            opt.source = f'data\videos\{uploaded_file.name}'
     else:
         is_valid = False
 
@@ -150,12 +150,12 @@ if is_valid:
         if inferenceSource != '0':
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
-                    st.video(f'{_get_latest_folder()}\\{vid}')
+                    st.video(f'{_get_latest_folder()}\{vid}')
                 st.balloons()
         else:
             with st.spinner(text='Preparing Images'):
                 for img in os.listdir(_get_latest_folder()):
-                    st.image(f'{_get_latest_folder()}\\{img}')
+                    st.image(f'{_get_latest_folder()}\{img}')
                 st.balloons()
 
 
