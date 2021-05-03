@@ -11,6 +11,7 @@ import sys
 import argparse
 from PIL import Image  
 import PIL
+import base64
 
 st.set_page_config(
     page_title="Hassan Baydoun - Final Project Python",
@@ -133,7 +134,7 @@ else:
         is_valid = True
         with st.spinner(text='In progress'):
             st.sidebar.video(uploaded_file)
-            _save_uploadedfile(uploaded_file) 
+            _save_uploadedfile(uploaded_file)
             opt.source = f'data/videos/{uploaded_file.name}'
     else:
         is_valid = False
@@ -151,6 +152,10 @@ if is_valid:
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
                     st.video(f'{_get_latest_folder()}/{vid}')
+                    with open(f'{_get_latest_folder()}/{vid}', "rb") as videoFile:
+                        b64 = base64.b64encode(videoFile.read()).decode()  # some strings <-> bytes conversions necessary here
+                        href = f'<a href="data:file/mp4;base64,{b64}">(If codec not supported press here to download)</a> (right-click and save as &lt;some_name&gt;.mp4)'
+                        st.markdown(href, unsafe_allow_html=True)
                 st.balloons()
         else:
             with st.spinner(text='Preparing Images'):
