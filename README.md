@@ -31,7 +31,7 @@ or
 > Image and video examples can be found in `data/images` and `data/videos`
 
 ## Code Samples
-Private fucntions:
+Private functions:
 ```python
 def _all_subdirs_of(b='.'):
     '''
@@ -75,8 +75,8 @@ if inferenceSource == '0':
         with st.spinner(text='In progress'):
             st.sidebar.image(uploaded_file)
             picture = Image.open(uploaded_file)  
-            picture = picture.save(f'data\images\{uploaded_file.name}') 
-            opt.source = f'data\images\{uploaded_file.name}'
+            picture = picture.save(f'data/images/{uploaded_file.name}') 
+            opt.source = f'data/images/{uploaded_file.name}'
     else:
         is_valid = False
 else:
@@ -85,8 +85,8 @@ else:
         is_valid = True
         with st.spinner(text='In progress'):
             st.sidebar.video(uploaded_file)
-            _save_uploadedfile(uploaded_file) 
-            opt.source = f'data\\videos\\{uploaded_file.name}'
+            _save_uploadedfile(uploaded_file)
+            opt.source = f'data/videos/{uploaded_file.name}'
     else:
         is_valid = False
 
@@ -100,16 +100,16 @@ if is_valid:
         with st_stdout("info"):
             detect(opt)
         if inferenceSource != '0':
+            st.warning('Video playback not available on deployed version due to resource restrictions. ')
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
-                    st.video(f'{_get_latest_folder()}\\{vid}')
+                    st.video(f'{_get_latest_folder()}/{vid}')
                 st.balloons()
         else:
             with st.spinner(text='Preparing Images'):
                 for img in os.listdir(_get_latest_folder()):
-                    st.image(f'{_get_latest_folder()}\\{img}')
+                    st.image(f'{_get_latest_folder()}/{img}')
                 st.balloons()
-
 
 ```
 
