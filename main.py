@@ -149,6 +149,7 @@ if is_valid:
         with st_stdout("info"):
             detect(opt)
         if inferenceSource != '0':
+            st.warning('Video playback not available on deployed version due to resource restrictions. ')
             with st.spinner(text='Preparing Video'):
                 for vid in os.listdir(_get_latest_folder()):
                     st.video(f'{_get_latest_folder()}/{vid}')
