@@ -26,8 +26,11 @@ or
 - `pip install -r requirements.txt`
 
 ## Run
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/hassan-baydoun/python_final_project/main/main.py)
-
+Deployed:\
+\
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/hassan-baydoun/python_final_project/main/main.py)\
+\
+Or Locally:
 > Run with command `streamlit run main.py`
 > Image and video examples can be found in `data/images` and `data/videos`
 
