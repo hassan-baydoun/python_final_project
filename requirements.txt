@@ -3,7 +3,7 @@
 # base ----------------------------------------
 streamlit
 matplotlib>=3.2.2
-numpy>=1.18.5
+numpy>=2.4.4
 opencv-python-headless
 Pillow
 PyYAML>=5.3.1
